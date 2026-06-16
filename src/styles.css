@@ -1,0 +1,513 @@
+/* Reset and core page styles */
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #0b0e14; /* Deep rich crypto-black */
+  color: #f1f5f9;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  position: fixed;
+  inset: 0;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Global Button reset and design */
+button,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* Crypto Clicker Layout */
+.game-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  box-sizing: border-box;
+  padding: 16px;
+  max-width: 480px; /* Centered narrow column for great mobile look on any screen */
+  margin: 0 auto;
+  gap: 12px;
+}
+
+/* Header with stats */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(17, 24, 39, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 14px 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+}
+
+.balance-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.currency-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.currency-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.currency-icon.usdt {
+  background: #00b0ff;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 176, 255, 0.3);
+}
+
+.currency-icon.btc {
+  background: #f7931a;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(247, 147, 26, 0.3);
+}
+
+.currency-val {
+  font-size: 16px;
+  font-weight: 750;
+  letter-spacing: 0.5px;
+}
+
+.currency-val.usdt {
+  color: #00e676; /* Neon green for balance */
+}
+
+.currency-val.btc {
+  color: #ffb74d; /* Bright orange for BTC */
+}
+
+/* Rate Widget in Header */
+.rate-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.rate-label {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.rate-value {
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.3s ease;
+}
+
+.rate-up {
+  color: #00e676;
+}
+
+.rate-down {
+  color: #ff5252;
+}
+
+.rate-arrow {
+  font-size: 11px;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+/* Reset / Audio Button */
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Center Clicker Zone */
+.game-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 5;
+}
+
+.coin-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-pulse-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 230, 118, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: coin-pulse 2.5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.coin-button {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #101726 0%, #1e293b 80%, #0f172a 100%);
+  border: 6px solid #00e676;
+  box-shadow: 0 0 35px rgba(0, 230, 118, 0.35), inset 0 0 20px rgba(0, 230, 118, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s;
+  overflow: hidden;
+}
+
+/* Rotating glowing ring inside coin */
+.coin-inner-glow {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 1px dashed rgba(0, 230, 118, 0.4);
+  animation: coin-rotate 15s linear infinite;
+  pointer-events: none;
+}
+
+.coin-symbol {
+  font-size: 64px;
+  font-weight: 800;
+  color: #00e676;
+  text-shadow: 0 0 15px rgba(0, 230, 118, 0.6);
+  pointer-events: none;
+}
+
+.coin-label {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+  pointer-events: none;
+}
+
+/* Press state visual */
+.coin-button:active {
+  transform: scale(0.92);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.5), inset 0 0 10px rgba(0, 230, 118, 0.3);
+}
+
+.click-power-text {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 14px;
+  font-weight: 600;
+  background: rgba(17, 24, 39, 0.5);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* Floating Click Rewards */
+.float-text {
+  position: absolute;
+  color: #00e676;
+  font-size: 22px;
+  font-weight: 800;
+  pointer-events: none;
+  text-shadow: 0 0 10px rgba(0, 230, 118, 0.8), 0 2px 4px rgba(0, 0, 0, 0.5);
+  animation: floatUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Bottom Controls (4 кнопки на одной горизонтали) */
+.game-footer {
+  z-index: 10;
+}
+
+.footer-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.footer-btn {
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #f1f5f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.footer-btn:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.footer-btn .btn-icon {
+  font-size: 18px;
+}
+
+.footer-btn .btn-text {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-align: center;
+}
+
+/* Modals System (Popups) */
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-window {
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-height: 85%;
+  transform: scale(0.9);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.modal-overlay.active .modal-window {
+  transform: scale(1);
+}
+
+.modal-header {
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.modal-close {
+  background: none;
+  color: #94a3b8;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #ffffff;
+}
+
+.modal-body {
+  padding: 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Shop and Achievements Cards */
+.shop-item, .ach-item {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.shop-buy-btn, .ach-claim-btn, .claim-large-btn {
+  background: #00e676;
+  color: #0b0e14;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.shop-buy-btn:disabled, .ach-claim-btn:disabled, .claim-large-btn:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: #64748b;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Crypto Trade Group inside Shop */
+.shop-crypto {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 12px;
+  margin-top: 6px;
+}
+
+.shop-crypto h4 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.crypto-input-group {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.crypto-input-group input {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 8px;
+  color: #ffffff;
+  outline: none;
+}
+
+/* Market Chart bars */
+.market-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 120px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 10px;
+  gap: 4px;
+}
+
+.chart-bar {
+  flex: 1;
+  background: #f7931a;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  min-height: 5px;
+  transition: height 0.3s ease;
+}
+
+/* Claim Large Daily Reward button */
+.claim-large-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Keyframes animations */
+@keyframes coin-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 0.3; }
+}
+
+@keyframes coin-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(0.8); opacity: 1; }
+  100% { transform: translateY(-100px) scale(1.1); opacity: 0; }
+}

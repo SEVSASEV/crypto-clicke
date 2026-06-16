@@ -1,0 +1,40 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173 --strictPort",
+    "build": "vite build --base=./",
+    "preview": "vite preview --host 0.0.0.0",
+    "electron:dev": "concurrently \"npm run dev\" \"cross-env NODE_ENV=development electron .\"",
+    "electron:build": "npm run build && electron-builder"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "@playabl/sdk": "^0.1.0",
+    "three": "^0.184.0"
+  },
+  "build": {
+    "appId": "com.cryptoclicker.game",
+    "productName": "CryptoClicker",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js"
+    ],
+    "win": {
+      "target": "portable",
+      "requestedExecutionLevel": "asInvoker"
+    }
+  }
+}
