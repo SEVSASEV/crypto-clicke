@@ -1,0 +1,29 @@
+name: Build EXE inside Cloud
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm install concurrently cross-env electron electron-builder vite three @playabl/sdk --save-dev
+
+      - name: Build Game EXE
+        run: |
+          npm run build -- --base=./
+          npx electron-builder --config.win.target=portable --config.directories.output=dist_exe --config.files="['dist/**/*', 'main.js']"
+
+      - name: Upload Finished EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: CryptoClicker-Windows-EXE
+          path: dist_exe/*.exe
