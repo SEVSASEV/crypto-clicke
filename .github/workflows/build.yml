@@ -13,17 +13,16 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Project Deps
-        run: npm install
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install electron electron-builder --save-dev
 
-      - name: Install Build Tools
-        run: npm install electron electron-builder --save-dev
-
-      - name: Compile Vite Production Code
+      - name: Compile Frontend via Vite
         run: npm run build
 
       - name: Packaging into Windows EXE
-        run: npx electron-builder --config.win.target=portable --config.directories.output=dist_exe --config.files="['dist/**/*', 'main.js']"
+        run: npx electron-builder --config.win.target=portable --config.directories.output=dist_exe --config.files="['dist/**/*', 'main.cjs']"
 
       - name: Upload Finished EXE
         uses: actions/upload-artifact@v4
