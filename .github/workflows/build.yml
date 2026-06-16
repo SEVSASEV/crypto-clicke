@@ -13,14 +13,17 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: |
-          npm install concurrently cross-env electron electron-builder vite three @playabl/sdk --save-dev
+      - name: Install Project Deps
+        run: npm install
 
-      - name: Build Game EXE
-        run: |
-          npm run build -- --base=./
-          npx electron-builder --config.win.target=portable --config.directories.output=dist_exe --config.files="['dist/**/*', 'main.js']"
+      - name: Install Build Tools
+        run: npm install electron electron-builder --save-dev
+
+      - name: Compile Vite Production Code
+        run: npm run build
+
+      - name: Packaging into Windows EXE
+        run: npx electron-builder --config.win.target=portable --config.directories.output=dist_exe --config.files="['dist/**/*', 'main.js']"
 
       - name: Upload Finished EXE
         uses: actions/upload-artifact@v4
